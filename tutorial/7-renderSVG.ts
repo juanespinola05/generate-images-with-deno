@@ -3,14 +3,10 @@ import createImage from './template.ts'
 
 const image = createImage()
 
+const svgString = await Deno.readTextFile('./tutorial/deno.svg')
+
 image.composite(
-  await Image.decode(await Deno.readFile('./tutorial/lake.jpg')),
+  Image.renderSVG(svgString, 500, Image.SVG_MODE_WIDTH),
 )
 
-// Indicamos desde qué punto y cuáles medidas
-image.crop(0, 0, 400, 200)
-
-await Deno.writeFile(
-  `./tutorial/output/scroppedImage.png`,
-  await image.encode(),
-)
+await Deno.writeFile(`./tutorial/output/renderSVG.png`, await image.encode())
