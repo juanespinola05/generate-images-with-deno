@@ -12,10 +12,10 @@ const IMAGE_POS = { x: 68, y: 73 }
 const polaroidImageTemplate = new Image(POLAROID_WIDTH, POLAROID_HEIGHT)
 
 polaroidImageTemplate.composite(
-  await Image.decode(await Deno.readFile('./src/assets/polaroid.png')),
+  await Image.decode(await Deno.readFile('./static/polaroid.png')),
 )
 
-const font = await Deno.readFile('./src/assets/Lato.ttf')
+const font = await Deno.readFile('./static/Lato.ttf')
 const textLayout = new TextLayout({
   maxWidth: 800,
 })
@@ -34,12 +34,21 @@ const getImageFromURL = async (imageUrl: string) => {
   return Image.decode(image)
 }
 
-async function generatePolaroid(imageUrl: string, text: string) {
+async function generatePolaroid(
+  imageUrl: string,
+  text: string,
+  cover: boolean,
+) {
   const imageFromURL = await getImageFromURL(imageUrl)
   const polaroid = polaroidImageTemplate.clone()
 
-  imageFromURL.cover(IMAGE_WIDTH, IMAGE_HEIGHT)
-  polaroid.composite(imageFromURL, IMAGE_POS.x, IMAGE_POS.y)
+  if (cover) {
+    imageFromURL.cover(IMAGE_WIDTH, IMAGE_HEIGHT)
+    polaroid.composite(imageFromURL, IMAGE_POS.x, IMAGE_POS.y)
+  } else {
+    imageFromURL.fit(IMAGE_WIDTH - 50, IMAGE_HEIGHT - 50)
+    polaroid.composite(imageFromURL, IMAGE_POS.x + 25, IMAGE_POS.y + 25)
+  }
 
   const textImage = Image.renderText(font, 48, text, 0x000000FF, textLayout)
   const xPos = polaroid.width / 2 - textImage.width * 0.5
