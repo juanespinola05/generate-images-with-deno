@@ -5,7 +5,7 @@ const image = createImage()
 
 const lakeImage = await Image.decode(await Deno.readFile('./tutorial/lake.jpg'))
 
-lakeImage.contain(image.width, image.height)
+lakeImage.cover(image.width, image.height)
 
 image.composite(lakeImage)
 
