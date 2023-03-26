@@ -4,4 +4,4 @@ const image = createImage()
 
 image.fill(0xFF0000FF)
 
-await Deno.writeFile(`./output/colorFilled.png`, await image.encode())
+await Deno.writeFile(`./tutorial/output/colorFilled.png`, await image.encode())
