@@ -9,4 +9,4 @@ lakeImage.cover(image.width, image.height)
 
 image.composite(lakeImage)
 
-await Deno.writeFile(`./tutorial/output/coverImage.png`, await image.encode())
+await Deno.writeFile(`./tutorial/output/cover.png`, await image.encode())
