@@ -17,7 +17,7 @@ const textLayout = new TextLayout({
 const font = await Deno.readFile('./tutorial/Lato.ttf')
 
 // Enviamos la fuente, el tamaño de la letra, nuestro texto, el color y la configuración (es opcional)
-const textImage = Image.renderText(font, 56, 'My text!', 0x000000FF, textLayout)
+const textImage = Image.renderText(font, 56, 'My text!', 0xFFFFFFFF, textLayout)
 
 image.composite(textImage)
 
