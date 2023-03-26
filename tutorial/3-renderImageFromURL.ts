@@ -7,6 +7,6 @@ const URL = 'https://upload.wikimedia.org/wikipedia/commons/0/05/Cat.png'
 const response = await fetch(URL)
 const imageFromURL = new Uint8Array(await response.arrayBuffer())
 
-image.composite(await Image.decode(imageFromURL))
+image.composite(await Image.decode(imageFromURL), 0, 0)
 
 await Deno.writeFile(`./output/imageFromURL.png`, await image.encode())
